@@ -1,0 +1,53 @@
+CREATE TABLE movie1 (
+    Id integer(6), 
+    Title varchar(10),
+    Release_date date,
+    Generic varchar(10),
+    Actor_name varchar(15),
+    PRIMARY KEY (Id));
+
+alter table movie1 add (price DECIMAL(12,2));
+alter table movie1 modify Title varchar(30);
+alter table movie1 drop Actor_name;
+alter table movie1 add (rating ENUM('*','**','***'));
+CREATE TABLE film SELECT * FROM movie1;
+ALTER TABLE film RENAME TO movie;
+DROP TABLE IF EXISTS movie, movie1;
+
+
+CREATE TABLE movie(
+    Id integer(6), 
+    Title varchar(30) NOT NULL,
+    Release_date date,
+    Generic varchar(15),
+    price DECIMAL(12,2),
+    rating ENUM('*','**','***'),
+    PRIMARY KEY (Id));
+    
+ALTER TABLE movie DROP PRIMARY KEY;
+
+ALTER TABLE movie ADD PRIMARY KEY (Id);
+ALTER TABLE movie ADD Actor_id INTEGER(6);
+
+CREATE TABLE Actor(
+    A_id INT(6),
+    A_name VARCHAR(25),
+    PRIMARY KEY(A_id) ); 
+    
+ALTER TABLE Actor ADD FOREIGN KEY (A_id) REFERENCES movie(Actor_id);
+
+INSERT INTO movie VALUES (123,	'Nanban','2012-10-12','Comedy',10000.00,'**',1);
+INSERT INTO movie VALUES(165,'Vazhakku Enn 18/9', '2012-05-04',	'Drama', 5894.00,'***',	2);
+INSERT INTO movie VALUES(117,'English Vinglish','2012-10-05','Drama',7892.00,	'*',3);
+INSERT INTO movie VALUES(145,'Kumki','2012-12-14','Drama',9800.00,'***',4);
+INSERT INTO movie VALUES(129,'Thuppakki','2012-11-13','Action',6000.00,	'***',1);
+INSERT INTO movie VALUES(196,'Billa II'	,'2012-07-13','Thriller',9000.00, '*',3);
+
+
+INSERT INTO Actor VALUES(1,'Vijay');
+INSERT INTO Actor VALUES(2,'Sri');
+INSERT INTO Actor VALUES(3,'Ajith');
+INSERT INTO Actor VALUES(4,'Vikram Prabhu');
+
+desc movie;
+desc Actor;
